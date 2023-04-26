@@ -84,6 +84,12 @@ public class CarrinhoController {
 	   ModelAndView mv = new ModelAndView("mensagemfinalizou");
 	   compra.setUsuario(usuario);
 	   compra.setFormaPagamento(formaPagamento);
+	   
+	   if (itensCompra.isEmpty()) {
+		   mv.addObject("mensagem", "Não é possível confirmar a compra com o carrinho vazio.");
+		   return mv;
+		   }
+	   
 	   compraRepository.save(compra);
 
 	   for(ItensCompra c:itensCompra) {

@@ -84,6 +84,7 @@ public class UsuarioController {
 		String senhacriptografada = new BCryptPasswordEncoder().encode(usuario.getSenha());
 		usuario.setSenha(senhacriptografada);
 		usuarioRepository.save(usuario);
+		usuarioRepository.adicionarPermissaoUsuario(usuario.getId());
 
 		ModelAndView andView = new ModelAndView("cadastro/cadastrousuario");
 		Iterable<Usuario> pessoasIT = usuarioRepository.findAll();
