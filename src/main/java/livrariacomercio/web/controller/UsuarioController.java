@@ -2,10 +2,8 @@ package livrariacomercio.web.controller;
 
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Optional;
@@ -96,7 +94,7 @@ public class UsuarioController {
 
 	private void buscarUsuarioLogado() {
 		  Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
-		  if(!(autenticado instanceof AnonymousAuthenticationToken)) { 
+		  if(!(autenticado instanceof AnonymousAuthenticationToken)) {
 			  String nome = autenticado.getName();
 			  usuario = usuarioRepository.buscarUsuarioNome(nome).get(0);
 		  }
@@ -126,8 +124,8 @@ public class UsuarioController {
 	@RequestMapping(method=RequestMethod.POST, value="/editarcadastro")
     public ModelAndView editar(Usuario usuario) throws Exception{
         ModelAndView mv =  new ModelAndView("cadastro/meucadastroeditar");
-        
-        
+
+
         URL url = new URL("HTTPS://viacep.com.br/ws/"+usuario.getCep()+"/json/ ");
 
         URLConnection connection = url.openConnection();
@@ -154,13 +152,13 @@ public class UsuarioController {
         usuario.setLocalidade(userAux.getLocalidade());
 
         usuario.setUf(userAux.getUf());
-        
+
         Usuario usuarioExistente = usuarioRepository.findById(usuario.getId()).orElseThrow(() -> new IllegalArgumentException("ID de usuário inválido: " + usuario.getId()));
         usuario.setSenha(usuarioExistente.getSenha());
         return listacadastro();
-        
+
     }
-	
+
 	@GetMapping("/editarsenha/{idusuario}")
 	public ModelAndView editarsenha(@PathVariable("idusuario")Long idusuario) {
 
@@ -176,8 +174,8 @@ public class UsuarioController {
 	@RequestMapping(method=RequestMethod.POST, value="/editarsenha")
     public ModelAndView editarsenha(Usuario usuario) throws Exception{
         ModelAndView mv =  new ModelAndView("cadastro/minhasenhaeditar");
-        
-        
+
+
         URL url = new URL("HTTPS://viacep.com.br/ws/"+usuario.getCep()+"/json/ ");
 
         URLConnection connection = url.openConnection();
@@ -204,12 +202,12 @@ public class UsuarioController {
         usuario.setLocalidade(userAux.getLocalidade());
 
         usuario.setUf(userAux.getUf());
-        
+
 		String senhacriptografada = new BCryptPasswordEncoder().encode(usuario.getSenha());
 		usuario.setSenha(senhacriptografada);
-		
+
         return listacadastro();
-        
+
     }
 
 }

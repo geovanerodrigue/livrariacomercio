@@ -31,7 +31,7 @@ public class Usuario implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	
+
 	private String cpf;
 
 	@Column(unique = true)
@@ -69,7 +69,7 @@ public class Usuario implements UserDetails {
 	  foreignKey = @ForeignKey(name = "usuario_fk", value = ConstraintMode.CONSTRAINT)),
 
 	  inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", table = "role",unique = false, updatable = false,
-	   foreignKey = @ForeignKey(name="role_fk", value = ConstraintMode.CONSTRAINT)))  
+	   foreignKey = @ForeignKey(name="role_fk", value = ConstraintMode.CONSTRAINT)))
 	private List<Role> roles;
 
 	public String getCpf() {

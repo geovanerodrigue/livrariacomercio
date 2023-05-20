@@ -20,7 +20,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 
 	@Query("from Usuario where login=?1")
 	public List<Usuario> buscarUsuarioNome(String nome);
-	
+
 	@Modifying
 	@Query(value = "INSERT INTO usuarios_role (usuario_id, role_id) VALUES (:idUsuario, 2)", nativeQuery = true)
 	void adicionarPermissaoUsuario(@Param("idUsuario") Long idUsuario);

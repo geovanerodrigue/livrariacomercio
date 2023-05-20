@@ -1,0 +1,28 @@
+
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0.30
+    container_name: academicnet-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 180897
+      MYSQL_DATABASE: livrariacomercio
+    ports:
+    - "3306:3306"
+    cap_add:
+      - SYS_NICE
+  app:
+    image: ggeovane/livrariacomercio:V1
+    container_name: livrariacomercio
+    depends_on:
+      - mysql-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/livrariacomercio
+      HABILITAR_CARREGAR_MASSA_DADOS: 'true'
+    ports:
+     - "9090:8080"  # host:container
+
+
+
